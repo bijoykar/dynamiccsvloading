@@ -1,0 +1,11 @@
+ID,Name,Department,Position,Salary,Start_Date,Email,Status
+1,John Smith,Engineering,Software Developer,75000,2023-01-15,john.smith@company.com,Active
+2,Sarah Johnson,Marketing,Marketing Manager,68000,2022-08-20,sarah.johnson@company.com,Active
+3,Michael Brown,Finance,Financial Analyst,62000,2023-03-10,michael.brown@company.com,On Leave
+4,Emily Davis,Human Resources,HR Specialist,58000,2022-11-05,emily.davis@company.com,Active
+5,David Wilson,Engineering,Senior Developer,85000,2021-06-12,david.wilson@company.com,Active
+6,Lisa Anderson,Sales,Sales Representative,55000,2023-02-28,lisa.anderson@company.com,Inactive
+7,Robert Miller,IT,System Administrator,70000,2022-12-01,robert.miller@company.com,Active
+8,Jennifer Garcia,Marketing,Content Creator,52000,2023-04-18,jennifer.garcia@company.com,Active
+9,William Martinez,Finance,Accountant,60000,2022-09-15,william.martinez@company.com,On Leave
+
