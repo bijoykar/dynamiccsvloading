@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Teams Tutorial - Complete Guide</title>
+    <style>
+        @page {
+            margin: 1in;
+            size: A4;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #6264a7;
+            padding-bottom: 20px;
+        }
+        
+        .header h1 {
+            color: #6264a7;
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: 300;
+        }
+        
+        .header .subtitle {
+            color: #666;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        
+        h2 {
+            color: #6264a7;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-left: 4px solid #6264a7;
+            padding-left: 15px;
+        }
+        
+        h3 {
+            color: #333;
+            font-size: 1.2em;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .highlight-box {
+            background-color: #f3f2ff;
+            border: 1px solid #6264a7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .tip-box {
+            background-color: #e7f5e7;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .warning-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: "✓";
+            color: #6264a7;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .step-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #6264a7;
+        }
+        
+        .step-box h4 {
+            margin: 0 0 10px 0;
+            color: #6264a7;
+        }
+        
+        .shortcut {
+            background-color: #f8f9fa;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #495057;
+            border: 1px solid #dee2e6;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+        
+        .toc a {
+            color: #6264a7;
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .screenshot-instruction {
+            background-color: #e8f4fd;
+            border: 2px dashed #0078d4;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-style: italic;
+            color: #0078d4;
+        }
+        
+        .screenshot-instruction::before {
+            content: "📷 Screenshot: ";
+            font-weight: bold;
+            font-style: normal;
+        }
+        
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Microsoft Teams Tutorial</h1>
+        <div class="subtitle">Complete Guide for Collaboration and Communication</div>
+    </div>
+
+    <div class="toc">
+        <h3>Table of Contents</h3>
+        <ul>
+            <li><a href="#getting-started">1. Getting Started with Teams</a></li>
+            <li><a href="#interface">2. Understanding the Interface</a></li>
+            <li><a href="#teams-channels">3. Teams and Channels</a></li>
+            <li><a href="#meetings">4. Meetings and Video Calls</a></li>
+            <li><a href="#chat">5. Chat and Messaging</a></li>
+            <li><a href="#files">6. File Sharing and Collaboration</a></li>
+            <li><a href="#apps">7. Apps and Integrations</a></li>
+            <li><a href="#advanced">8. Advanced Features</a></li>
+            <li><a href="#shortcuts">9. Keyboard Shortcuts</a></li>
+            <li><a href="#troubleshooting">10. Troubleshooting</a></li>
+        </ul>
+    </div>
+
+    <div class="section" id="getting-started">
+        <h2>1. Getting Started with Teams</h2>
+        
+        <h3>What is Microsoft Teams?</h3>
+        <p>Microsoft Teams is a collaboration platform that combines workplace chat, video meetings, file storage, and application integration. It's part of the Microsoft 365 suite and serves as a digital hub for teamwork.</p>
+        
+        <div class="highlight-box">
+            <h4>Key Benefits:</h4>
+            <ul class="feature-list">
+                <li>Unified communication (chat, calls, meetings)</li>
+                <li>Real-time collaboration on documents</li>
+                <li>Integration with Microsoft 365 apps</li>
+                <li>Cross-platform availability</li>
+                <li>Enterprise-grade security</li>
+            </ul>
+        </div>
+
+        <h3>Installation and Setup</h3>
+        <div class="step-box">
+            <h4>Step 1: Download Teams</h4>
+            <p>Visit <strong>teams.microsoft.com</strong> and download the desktop app, or use the web version directly in your browser.</p>
+            <div class="screenshot-instruction">
+                You should see the Teams website homepage with a prominent "Download for desktop" button and options for "Use the web app instead" below it. The page will show the Teams logo and tagline "Connect and collaborate with anyone from anywhere on Teams."
+            </div>
+        </div>
+
+        <div class="step-box">
+            <h4>Step 2: Sign In</h4>
+            <p>Use your Microsoft 365 work/school account or personal Microsoft account to sign in.</p>
+            <div class="screenshot-instruction">
+                The sign-in screen displays the Microsoft Teams logo at the top, with an email input field labeled "Sign in" and options for "Work or school account" and "Personal account" below. You'll also see "Sign in with a one-time code instead" link at the bottom.
+            </div>
+        </div>
+
+        <div class="step-box">
+            <h4>Step 3: Set Up Your Profile</h4>
+            <p>Add a profile picture, update your status, and configure notification preferences.</p>
+        </div>
+    </div>
+
+    <div class="section" id="interface">
+        <h2>2. Understanding the Interface</h2>
+        
+        <h3>Main Navigation Bar (Left Side)</h3>
+        <div class="screenshot-instruction">
+            The Teams interface shows a dark purple navigation bar on the left side with icons for each section. At the top is your profile picture/avatar, followed by vertically aligned icons: Activity (bell icon), Chat (message bubble), Teams (people icon), Calendar (calendar icon), Calls (phone icon), Files (folder icon), and Apps (grid icon). The currently selected section is highlighted in white.
+        </div>
+        <ul>
+            <li><strong>Activity:</strong> View notifications, mentions, and recent activity</li>
+            <li><strong>Chat:</strong> Private and group conversations</li>
+            <li><strong>Teams:</strong> Access your teams and channels</li>
+            <li><strong>Calendar:</strong> Schedule and join meetings</li>
+            <li><strong>Calls:</strong> Make and receive phone calls</li>
+            <li><strong>Files:</strong> Access shared and personal files</li>
+            <li><strong>Apps:</strong> Installed third-party applications</li>
+        </ul>
+
+        <div class="tip-box">
+            <strong>💡 Tip:</strong> Use <span class="shortcut">Ctrl + 1-9</span> to quickly navigate between different sections.
+        </div>
+    </div>
+
+    <div class="section" id="teams-channels">
+        <h2>3. Teams and Channels</h2>
+        
+        <h3>Understanding Teams</h3>
+        <p>A <strong>Team</strong> is a collection of people, content, and tools surrounding different projects and outcomes within an organization.</p>
+
+        <h3>Understanding Channels</h3>
+        <p><strong>Channels</strong> are dedicated sections within a team to keep conversations organized by specific topics, projects, disciplines, or whatever works for your team.</p>
+
+        <div class="step-box">
+            <h4>Creating a New Team</h4>
+            <div class="screenshot-instruction">
+                Step 1: In the Teams section, you'll see your existing teams listed. Look for a "Create team" button or "Join or create a team" option at the bottom of the teams list.
+            </div>
+            <ol>
+                <li>Click <strong>"Teams"</strong> in the left sidebar</li>
+                <li>Click <strong>"Create team"</strong></li>
+                <li>Choose team type (Class, PLC, Staff, or Other)</li>
+                <li>Enter team name and description</li>
+                <li>Set privacy level (Public or Private)</li>
+                <li>Add team members</li>
+            </ol>
+            <div class="screenshot-instruction">
+                Step 2-3: A dialog box appears with template options. You'll see tiles for "Create a team from scratch" and various templates like "Manage a Project," "Manage an Event," etc. Each tile shows an icon and description of the team type.
+            </div>
+        </div>
+
+        <div class="step-box">
+            <h4>Creating a New Channel</h4>
+            <ol>
+                <li>Navigate to your team</li>
+                <li>Click the <strong>"..."</strong> next to the team name</li>
+                <li>Select <strong>"Add channel"</strong></li>
+                <li>Enter channel name and description</li>
+                <li>Choose privacy settings</li>
+                <li>Click <strong>"Create"</strong></li>
+            </ol>
+        </div>
+
+        <h3>Channel Types</h3>
+        <ul>
+            <li><strong>Standard:</strong> Accessible to all team members</li>
+            <li><strong>Private:</strong> Only accessible to specific members</li>
+            <li><strong>Shared:</strong> Accessible to people outside your organization</li>
+        </ul>
+    </div>
+
+    <div class="section" id="meetings">
+        <h2>4. Meetings and Video Calls</h2>
+        
+        <h3>Scheduling a Meeting</h3>
+        <div class="step-box">
+            <h4>Method 1: From Calendar</h4>
+            <div class="screenshot-instruction">
+                The Calendar view shows a monthly, weekly, or daily calendar layout. At the top right, you'll see a prominent "New meeting" button. The interface resembles Outlook calendar with time slots and existing meetings displayed as colored blocks.
+            </div>
+            <ol>
+                <li>Click <strong>"Calendar"</strong> in the left sidebar</li>
+                <li>Click <strong>"New meeting"</strong></li>
+                <li>Fill in meeting details (title, attendees, date, time)</li>
+                <li>Add meeting options (lobby settings, recording permissions)</li>
+                <li>Click <strong>"Send"</strong></li>
+            </ol>
+            <div class="screenshot-instruction">
+                Steps 3-5: The meeting form opens with fields for "Add a title," "Invite people" (with @mention suggestions), date/time pickers, and a "Meeting options" link. You'll also see options for "Add channel" and meeting room booking if available.
+            </div>
+        </div>
+
+        <div class="step-box">
+            <h4>Method 2: Meet Now</h4>
+            <ol>
+                <li>Go to a channel or chat</li>
+                <li>Click the video camera icon <strong>"Meet now"</strong></li>
+                <li>Choose meeting settings</li>
+                <li>Click <strong>"Start meeting"</strong></li>
+            </ol>
+        </div>
+
+        <h3>During a Meeting</h3>
+        <div class="highlight-box">
+            <h4>Essential Controls:</h4>
+            <div class="screenshot-instruction">
+                During a meeting, the control bar appears at the bottom of the screen with circular buttons. From left to right: microphone icon (mute/unmute), camera icon (video on/off), share screen icon, "..." more actions menu, and red "Leave" button. Participant videos appear in a grid layout above the controls.
+            </div>
+            <ul class="feature-list">
+                <li><strong>Mute/Unmute:</strong> <span class="shortcut">Ctrl + Shift + M</span></li>
+                <li><strong>Turn camera on/off:</strong> <span class="shortcut">Ctrl + Shift + O</span></li>
+                <li><strong>Share screen:</strong> Click "Share content" button</li>
+                <li><strong>Chat:</strong> Click "Show conversation" button</li>
+                <li><strong>Record:</strong> Click "..." → "Start recording"</li>
+                <li><strong>Breakout rooms:</strong> Available for meeting organizers</li>
+            </ul>
+        </div>
+
+        <div class="tip-box">
+            <strong>💡 Meeting Best Practices:</strong>
+            <ul>
+                <li>Join meetings 2-3 minutes early</li>
+                <li>Mute when not speaking</li>
+                <li>Use good lighting and a quiet environment</li>
+                <li>Test audio/video before important meetings</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section" id="chat">
+        <h2>5. Chat and Messaging</h2>
+        
+        <h3>Types of Conversations</h3>
+        <ul>
+            <li><strong>1:1 Chat:</strong> Private conversation between two people</li>
+            <li><strong>Group Chat:</strong> Conversation with multiple people</li>
+            <li><strong>Channel Conversation:</strong> Team-wide discussion in a channel</li>
+        </ul>
+
+        <h3>Starting a Chat</h3>
+        <div class="step-box">
+            <h4>New Chat</h4>
+            <div class="screenshot-instruction">
+                In the Chat section, you'll see a list of recent conversations on the left panel. At the top of this list is a "New chat" button with a pencil icon. When clicked, a "To:" field appears where you can type names or email addresses, with autocomplete suggestions appearing below.
+            </div>
+            <ol>
+                <li>Click <strong>"Chat"</strong> in the left sidebar</li>
+                <li>Click <strong>"New chat"</strong> (pencil icon)</li>
+                <li>Type names or email addresses</li>
+                <li>Add a group name (for group chats)</li>
+                <li>Start typing your message</li>
+            </ol>
+        </div>
+
+        <h3>Message Features</h3>
+        <div class="highlight-box">
+            <h4>Rich Text Options:</h4>
+            <ul class="feature-list">
+                <li><strong>Format text:</strong> Bold, italic, underline, highlights</li>
+                <li><strong>@Mentions:</strong> Type @ followed by person's name</li>
+                <li><strong>Emojis and GIFs:</strong> Click emoji button below message box</li>
+                <li><strong>File attachments:</strong> Drag and drop or click attach button</li>
+                <li><strong>Voice messages:</strong> Hold microphone button to record</li>
+                <li><strong>Message reactions:</strong> Hover over message and click emoji</li>
+            </ul>
+        </div>
+
+        <div class="warning-box">
+            <strong>⚠️ Important:</strong> Remember that all chats in Teams can be searched and may be retained according to your organization's policies.
+        </div>
+    </div>
+
+    <div class="section" id="files">
+        <h2>6. File Sharing and Collaboration</h2>
+        
+        <h3>Sharing Files</h3>
+        <div class="step-box">
+            <h4>In Chat or Channel</h4>
+            <div class="screenshot-instruction">
+                At the bottom of the chat window, you'll see the message composition area. Below the text box are several icons including an emoji button, @mentions, and a paperclip icon for attachments. When clicked, a menu appears with options for "Upload from this device," "Browse cloud locations," and recent files.
+            </div>
+            <ol>
+                <li>Click the <strong>"Attach"</strong> button (paperclip icon)</li>
+                <li>Choose <strong>"Upload from this device"</strong> or <strong>"Browse cloud locations"</strong></li>
+                <li>Select your file and click <strong>"Share"</strong></li>
+                <li>Choose sharing permissions</li>
+            </ol>
+        </div>
+
+        <h3>File Collaboration</h3>
+        <ul class="feature-list">
+            <li><strong>Real-time co-authoring:</strong> Multiple people can edit simultaneously</li>
+            <li><strong>Version history:</strong> Track changes and restore previous versions</li>
+            <li><strong>Comments:</strong> Add comments for feedback and discussion</li>
+            <li><strong>@Mentions in documents:</strong> Tag colleagues for their attention</li>
+        </ul>
+
+        <h3>Files Tab</h3>
+        <p>Each channel has a <strong>"Files"</strong> tab where all shared files are stored and organized. Files are automatically saved to the team's SharePoint site.</p>
+
+        <div class="tip-box">
+            <strong>💡 Pro Tip:</strong> Use the Files app in Teams to access all your files across different teams and OneDrive in one place.
+        </div>
+    </div>
+
+    <div class="section" id="apps">
+        <h2>7. Apps and Integrations</h2>
+        
+        <h3>Popular Teams Apps</h3>
+        <ul>
+            <li><strong>Planner:</strong> Task management and project tracking</li>
+            <li><strong>OneNote:</strong> Digital notebooks for team collaboration</li>
+            <li><strong>Power BI:</strong> Data visualization and business intelligence</li>
+            <li><strong>Trello:</strong> Project management boards</li>
+            <li><strong>Adobe Creative Cloud:</strong> Design and creative tools</li>
+            <li><strong>GitHub:</strong> Code repository integration</li>
+        </ul>
+
+        <h3>Adding Apps to Teams</h3>
+        <div class="step-box">
+            <h4>Add Apps to a Channel</h4>
+            <div class="screenshot-instruction">
+                When viewing a channel, look at the top of the main content area. You'll see tabs like "Posts," "Files," and others. At the end of the tab row is a "+" button. Clicking it opens the "Add a tab" dialog with a gallery of available apps including OneNote, Planner, Power BI, and more.
+            </div>
+            <ol>
+                <li>Go to the desired channel</li>
+                <li>Click the <strong>"+"</strong> button in the tab bar</li>
+                <li>Browse or search for apps</li>
+                <li>Click <strong>"Add"</strong> on your chosen app</li>
+                <li>Configure app settings</li>
+                <li>Click <strong>"Save"</strong></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="section" id="advanced">
+        <h2>8. Advanced Features</h2>
+        
+        <h3>Teams Phone</h3>
+        <p>Make and receive business calls directly through Teams with advanced calling features.</p>
+
+        <h3>Webinars and Live Events</h3>
+        <ul class="feature-list">
+            <li><strong>Webinars:</strong> Interactive online seminars with registration</li>
+            <li><strong>Live Events:</strong> Broadcast to large audiences up to 20,000 attendees</li>
+        </ul>
+
+        <h3>Teams Rooms</h3>
+        <p>Transform meeting rooms with Teams-certified devices for seamless hybrid meetings.</p>
+
+        <h3>Power Platform Integration</h3>
+        <ul class="feature-list">
+            <li><strong>Power Apps:</strong> Create custom applications within Teams</li>
+            <li><strong>Power Automate:</strong> Automate workflows and processes</li>
+            <li><strong>Power Virtual Agents:</strong> Deploy chatbots in Teams</li>
+        </ul>
+
+        <div class="highlight-box">
+            <h4>Security and Compliance</h4>
+            <ul class="feature-list">
+                <li>Data Loss Prevention (DLP)</li>
+                <li>eDiscovery and legal hold</li>
+                <li>Multi-factor authentication</li>
+                <li>Conditional access policies</li>
+                <li>Information barriers</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section" id="shortcuts">
+        <h2>9. Keyboard Shortcuts</h2>
+        
+        <h3>Navigation Shortcuts</h3>
+        <ul>
+            <li><span class="shortcut">Ctrl + 1</span> - Activity</li>
+            <li><span class="shortcut">Ctrl + 2</span> - Chat</li>
+            <li><span class="shortcut">Ctrl + 3</span> - Teams</li>
+            <li><span class="shortcut">Ctrl + 4</span> - Calendar</li>
+            <li><span class="shortcut">Ctrl + 5</span> - Calls</li>
+            <li><span class="shortcut">Ctrl + 6</span> - Files</li>
+        </ul>
+
+        <h3>Meeting Shortcuts</h3>
+        <ul>
+            <li><span class="shortcut">Ctrl + Shift + M</span> - Mute/unmute</li>
+            <li><span class="shortcut">Ctrl + Shift + O</span> - Camera on/off</li>
+            <li><span class="shortcut">Ctrl + Shift + E</span> - Share screen</li>
+            <li><span class="shortcut">Ctrl + Shift + H</span> - Raise/lower hand</li>
+        </ul>
+
+        <h3>General Shortcuts</h3>
+        <ul>
+            <li><span class="shortcut">Ctrl + E</span> - Go to search box</li>
+            <li><span class="shortcut">Ctrl + N</span> - Start new chat</li>
+            <li><span class="shortcut">Ctrl + Shift + U</span> - Mark as unread</li>
+            <li><span class="shortcut">Ctrl + /</span> - Show keyboard shortcuts</li>
+        </ul>
+    </div>
+
+    <div class="section" id="troubleshooting">
+        <h2>10. Troubleshooting</h2>
+        
+        <h3>Common Issues and Solutions</h3>
+        
+        <div class="step-box">
+            <h4>Audio/Video Problems</h4>
+            <ul>
+                <li>Check device permissions in browser/app settings</li>
+                <li>Test audio/video in Teams settings</li>
+                <li>Update device drivers</li>
+                <li>Close other applications using camera/microphone</li>
+                <li>Try using Teams in a different browser</li>
+            </ul>
+        </div>
+
+        <div class="step-box">
+            <h4>Connection Issues</h4>
+            <ul>
+                <li>Check internet connection stability</li>
+                <li>Clear Teams cache and restart application</li>
+                <li>Disable VPN temporarily</li>
+                <li>Contact IT administrator for firewall settings</li>
+            </ul>
+        </div>
+
+        <div class="step-box">
+            <h4>Performance Issues</h4>
+            <ul>
+                <li>Close unnecessary browser tabs and applications</li>
+                <li>Update Teams to the latest version</li>
+                <li>Disable hardware acceleration in Teams settings</li>
+                <li>Use Teams desktop app instead of web browser</li>
+            </ul>
+        </div>
+
+        <div class="tip-box">
+            <strong>💡 Getting Help:</strong>
+            <ul>
+                <li>Use <strong>"Help"</strong> menu in Teams for built-in support</li>
+                <li>Visit Microsoft Teams Community for user discussions</li>
+                <li>Contact your IT administrator for organization-specific issues</li>
+                <li>Check Microsoft 365 Service Health for known issues</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Microsoft Teams Tutorial - Complete Guide for Effective Collaboration</p>
+        <p>Generated on November 19, 2025 | For the latest features, visit teams.microsoft.com</p>
+    </div>
+
+    <div class="no-print" style="margin-top: 30px; text-align: center; padding: 20px; background-color: #f3f2ff; border-radius: 5px;">
+        <strong>To convert to PDF:</strong> Press Ctrl+P (Windows) or Cmd+P (Mac) and select "Save as PDF" as the destination.
+    </div>
+</body>
+</html>
