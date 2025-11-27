@@ -218,26 +218,15 @@
 
         function parseCSV(data) {
             const lines = data.split('\n').filter(line => line.trim() !== '');
-            
-            // Parse headers and remove empty ones caused by trailing commas
-            headers = lines[0].split(',')
-                .map(header => header.trim())
-                .filter(header => header !== '');
+            headers = lines[0].split(',').map(header => header.trim());
             
             csvData = [];
             for (let i = 1; i < lines.length; i++) {
                 const values = lines[i].split(',').map(value => value.trim());
-                
-                // Remove trailing empty values to match header count
-                while (values.length > 0 && values[values.length - 1] === '') {
-                    values.pop();
-                }
-                
-                // Accept rows that match header count or are close (allow some flexibility)
-                if (values.length === headers.length || values.length === headers.length - 1) {
+                if (values.length === headers.length) {
                     const row = {};
                     headers.forEach((header, index) => {
-                        row[header] = values[index] || '';
+                        row[header] = values[index];
                     });
                     csvData.push(row);
                 }
