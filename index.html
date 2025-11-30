@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSV Data Dashboard</title>
+    <title>IIKONISYS Data Dashboard</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -36,10 +36,13 @@
             background: white;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            overflow: hidden;
+            overflow-x: auto;
+            overflow-y: auto;
+            max-height: 600px;
         }
         .table {
             margin-bottom: 0;
+            white-space: nowrap;
         }
         .table thead th {
             background-color: #495057;
@@ -49,12 +52,22 @@
             text-transform: uppercase;
             font-size: 0.85rem;
             letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .table td {
+            padding: 0.75rem;
         }
         .table tbody tr:hover {
             background-color: #f8f9fa;
         }
         .filter-input {
             margin-bottom: 1rem;
+        }
+        #filterContainer {
+            max-height: 400px;
+            overflow-y: auto;
         }
         .btn-download {
             background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
@@ -103,12 +116,21 @@
             padding: 2rem;
             color: #6c757d;
         }
+        .table-scroll-wrapper {
+            overflow-x: auto;
+            overflow-y: hidden;
+            border: 1px solid #dee2e6;
+            border-bottom: none;
+        }
+        .table-scroll-dummy {
+            height: 1px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1><i class="fas fa-chart-bar"></i> CSV Data Dashboard</h1>
+            <h1><i class="fas fa-chart-bar"></i> IIKONISYS Data Dashboard</h1>
             <p class="mb-0">Dynamic Data Filtering and Export Tool</p>
         </div>
 
@@ -163,7 +185,10 @@
                 <i class="fas fa-spinner fa-spin fa-2x"></i>
                 <p>Loading data...</p>
             </div>
-            <div id="tableContainer" style="display: none;">
+            <div class="table-scroll-wrapper" id="topScroll" style="display: none;">
+                <div class="table-scroll-dummy" id="topScrollContent"></div>
+            </div>
+            <div id="tableContainer" style="display: none; overflow-x: auto;">
                 <table class="table table-striped" id="dataTable">
                     <thead id="tableHead"></thead>
                     <tbody id="tableBody"></tbody>
@@ -226,7 +251,16 @@
             
             csvData = [];
             for (let i = 1; i < lines.length; i++) {
-                const values = lines[i].split(',').map(value => value.trim());
+                const values = lines[i].split(',').map(value => {
+                    const trimmed = value.trim();
+                    // Normalize null, undefined, empty strings, and common null representations
+                    if (trimmed === '' || trimmed.toLowerCase() === 'null' || 
+                        trimmed.toLowerCase() === 'undefined' || trimmed === 'N/A' || 
+                        trimmed === 'n/a' || trimmed === '-') {
+                        return '';
+                    }
+                    return trimmed;
+                });
                 
                 // Remove trailing empty values to match header count
                 while (values.length > 0 && values[values.length - 1] === '') {
@@ -250,7 +284,13 @@
             filterContainer.empty();
 
             headers.forEach(header => {
-                const uniqueValues = [...new Set(csvData.map(row => row[header]))].sort();
+                const uniqueValues = [...new Set(csvData.map(row => row[header] || '(Empty)'))]
+                    .sort((a, b) => {
+                        // Sort empty values to the end
+                        if (a === '(Empty)') return 1;
+                        if (b === '(Empty)') return -1;
+                        return a.localeCompare(b);
+                    });
                 
                 const filterDiv = $(`
                     <div class="col-md-6 col-lg-4 filter-input">
@@ -263,7 +303,9 @@
 
                 const select = filterDiv.find('select');
                 uniqueValues.forEach(value => {
-                    select.append(`<option value="${value}">${value}</option>`);
+                    const displayValue = value === '(Empty)' ? '(Empty)' : value;
+                    const actualValue = value === '(Empty)' ? '' : value;
+                    select.append(`<option value="${actualValue}">${displayValue}</option>`);
                 });
 
                 filterContainer.append(filterDiv);
@@ -296,12 +338,14 @@
 
             if (data.length === 0) {
                 $('#tableContainer').hide();
+                $('#topScroll').hide();
                 $('#noData').show();
                 return;
             }
 
             $('#noData').hide();
             $('#tableContainer').show();
+            $('#topScroll').show();
 
             // Create header row
             const headerRow = $('<tr></tr>');
@@ -314,16 +358,43 @@
             data.forEach(row => {
                 const dataRow = $('<tr></tr>');
                 headers.forEach(header => {
-                    dataRow.append(`<td>${row[header] || ''}</td>`);
+                    const value = row[header];
+                    // Display empty values with a visual indicator
+                    const displayValue = (value === '' || value === null || value === undefined) 
+                        ? '<span style="color: #999; font-style: italic;">-</span>' 
+                        : value;
+                    dataRow.append(`<td>${displayValue}</td>`);
                 });
                 tableBody.append(dataRow);
             });
+
+            // Sync scrollbars
+            syncScrollbars();
         }
 
         function updateStats() {
             $('#totalRecords').text(csvData.length);
             $('#filteredRecords').text(filteredData.length);
             $('#columnsCount').text(headers.length);
+        }
+
+        function syncScrollbars() {
+            const tableContainer = $('#tableContainer');
+            const topScroll = $('#topScroll');
+            const topScrollContent = $('#topScrollContent');
+            
+            // Set the width of the dummy div to match the table width
+            const tableWidth = $('#dataTable').outerWidth();
+            topScrollContent.width(tableWidth);
+            
+            // Sync scroll positions
+            topScroll.off('scroll').on('scroll', function() {
+                tableContainer.scrollLeft($(this).scrollLeft());
+            });
+            
+            tableContainer.off('scroll').on('scroll', function() {
+                topScroll.scrollLeft($(this).scrollLeft());
+            });
         }
 
         function downloadCSV(data, filename) {
@@ -336,7 +407,13 @@
             let csvContent = headers.join(',') + '\n';
             data.forEach(row => {
                 const values = headers.map(header => {
-                    let value = row[header] || '';
+                    let value = row[header];
+                    // Handle null, undefined, and empty values
+                    if (value === null || value === undefined || value === '') {
+                        return '';
+                    }
+                    // Convert to string if not already
+                    value = String(value);
                     // Escape quotes and wrap in quotes if necessary
                     if (value.includes(',') || value.includes('"') || value.includes('\n')) {
                         value = '"' + value.replace(/"/g, '""') + '"';
