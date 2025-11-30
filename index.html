@@ -304,7 +304,18 @@
                 if (values.length === headers.length || values.length === headers.length - 1) {
                     const row = {};
                     headers.forEach((header, index) => {
-                        row[header] = values[index] || '';
+                        let value = values[index] || '';
+                        
+                        // Convert specific columns to decimal format (divide by 10)
+                        const decimalColumns = ['VOLTAGE', 'VFD_RUNNING_FRQ', 'VFD_CURRENT'];
+                        if (decimalColumns.some(col => header.toUpperCase().includes(col)) && value !== '') {
+                            const numValue = parseFloat(value);
+                            if (!isNaN(numValue)) {
+                                value = (numValue / 10).toFixed(2);
+                            }
+                        }
+                        
+                        row[header] = value;
                     });
                     csvData.push(row);
                 }
