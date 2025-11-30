@@ -573,7 +573,7 @@
         // Event handlers
         $('#downloadFiltered').on('click', function() {
             const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
-            downloadCSV(filteredData, `filtered_data_${timestamp}.csv`);
+            downloadCSV(filteredData, `iikonisys_${timestamp}.csv`);
         });
 
         $('#clearFilters').on('click', function() {
