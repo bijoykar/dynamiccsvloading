@@ -125,6 +125,16 @@
         .table-scroll-dummy {
             height: 1px;
         }
+        .date-filter-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .date-filter-item {
+            flex: 1;
+            min-width: 200px;
+        }
     </style>
 </head>
 <body>
@@ -167,8 +177,31 @@
                     </label>
                 </div>
             </div>
-            <div id="filterContainer" class="row">
-                <!-- Dynamic filters will be generated here -->
+            <div class="date-filter-row">
+                <div class="date-filter-item">
+                    <label class="form-label fw-bold">From Date</label>
+                    <select class="form-select" id="fromDate">
+                        <option value="">Select Date</option>
+                    </select>
+                </div>
+                <div class="date-filter-item">
+                    <label class="form-label fw-bold">To Date</label>
+                    <select class="form-select" id="toDate">
+                        <option value="">Select Date</option>
+                    </select>
+                </div>
+                <div class="date-filter-item">
+                    <label class="form-label fw-bold">Shift</label>
+                    <select class="form-select" id="shiftFilter">
+                        <option value="">All Shifts</option>
+                    </select>
+                </div>
+                <div class="date-filter-item">
+                    <label class="form-label fw-bold">Mode</label>
+                    <select class="form-select" id="modeFilter">
+                        <option value="">All Modes</option>
+                    </select>
+                </div>
             </div>
             <div class="mt-3">
                 <button class="btn btn-clear me-2" id="clearFilters">
@@ -280,48 +313,139 @@
         }
 
         function createFilterInputs() {
-            const filterContainer = $('#filterContainer');
-            filterContainer.empty();
-
-            headers.forEach(header => {
-                const uniqueValues = [...new Set(csvData.map(row => row[header] || '(Empty)'))]
+            // Check if Shift column exists
+            const shiftColumn = headers.find(h => h.toLowerCase() === 'shift');
+            
+            if (shiftColumn) {
+                const uniqueShifts = [...new Set(csvData.map(row => row[shiftColumn] || '(Empty)'))]
                     .sort((a, b) => {
-                        // Sort empty values to the end
                         if (a === '(Empty)') return 1;
                         if (b === '(Empty)') return -1;
                         return a.localeCompare(b);
                     });
                 
-                const filterDiv = $(`
-                    <div class="col-md-6 col-lg-4 filter-input">
-                        <label class="form-label fw-bold">${header}</label>
-                        <select class="form-select filter-select" data-column="${header}">
-                            <option value="">All ${header}s</option>
-                        </select>
-                    </div>
-                `);
-
-                const select = filterDiv.find('select');
-                uniqueValues.forEach(value => {
+                const shiftSelect = $('#shiftFilter');
+                shiftSelect.empty();
+                shiftSelect.append('<option value="">All Shifts</option>');
+                
+                uniqueShifts.forEach(value => {
                     const displayValue = value === '(Empty)' ? '(Empty)' : value;
                     const actualValue = value === '(Empty)' ? '' : value;
-                    select.append(`<option value="${actualValue}">${displayValue}</option>`);
+                    shiftSelect.append(`<option value="${actualValue}">${displayValue}</option>`);
                 });
+            }
 
-                filterContainer.append(filterDiv);
-            });
+            // Check if Mode column exists
+            const modeColumn = headers.find(h => h.toLowerCase() === 'vfd_mode_status' || h === 'VFD_MODE_STATUS');
+            
+            if (modeColumn) {
+                const uniqueModes = [...new Set(csvData.map(row => row[modeColumn] || '(Empty)'))]
+                    .sort((a, b) => {
+                        if (a === '(Empty)') return 1;
+                        if (b === '(Empty)') return -1;
+                        return a.localeCompare(b);
+                    });
+                
+                const modeSelect = $('#modeFilter');
+                modeSelect.empty();
+                modeSelect.append('<option value="">All Modes</option>');
+                
+                uniqueModes.forEach(value => {
+                    const displayValue = value === '(Empty)' ? '(Empty)' : value;
+                    const actualValue = value === '(Empty)' ? '' : value;
+                    modeSelect.append(`<option value="${actualValue}">${displayValue}</option>`);
+                });
+            }
 
-            // Add event listener for filter changes
-            $('.filter-select').on('change', applyFilters);
+            // Add event listeners for filters
+            $('#fromDate, #toDate, #shiftFilter, #modeFilter').on('change', applyFilters);
+            
+            // Populate date dropdowns from CSV data
+            const dateColumn = headers.find(h => h.toLowerCase().includes('date'));
+            if (dateColumn) {
+                const uniqueDates = [...new Set(csvData.map(row => row[dateColumn]))]
+                    .filter(date => date && date.trim() !== '')
+                    .sort((a, b) => {
+                        // Parse and compare dates DD/MM/YY format
+                        const parseDate = (dateStr) => {
+                            const parts = dateStr.split('/');
+                            if (parts.length === 3) {
+                                return new Date('20' + parts[2], parts[1] - 1, parts[0]);
+                            }
+                            return new Date(0);
+                        };
+                        return parseDate(a) - parseDate(b);
+                    });
+                
+                const fromDateSelect = $('#fromDate');
+                const toDateSelect = $('#toDate');
+                
+                fromDateSelect.empty().append('<option value="">Select From Date</option>');
+                toDateSelect.empty().append('<option value="">Select To Date</option>');
+                
+                uniqueDates.forEach(date => {
+                    fromDateSelect.append(`<option value="${date}">${date}</option>`);
+                    toDateSelect.append(`<option value="${date}">${date}</option>`);
+                });
+                
+                // Set default values to first and last date
+                if (uniqueDates.length > 0) {
+                    fromDateSelect.val(uniqueDates[0]);
+                    toDateSelect.val(uniqueDates[uniqueDates.length - 1]);
+                }
+            }
         }
 
         function applyFilters() {
+            const fromDate = $('#fromDate').val();
+            const toDate = $('#toDate').val();
+            const shiftValue = $('#shiftFilter').val();
+            const modeValue = $('#modeFilter').val();
+            
+            // Find date, shift, and mode columns (case-insensitive)
+            const dateColumn = headers.find(h => h.toLowerCase().includes('date'));
+            const shiftColumn = headers.find(h => h.toLowerCase() === 'shift');
+            const modeColumn = headers.find(h => h.toLowerCase() === 'vfd_mode_status' || h === 'VFD_MODE_STATUS');
+            
             filteredData = csvData.filter(row => {
-                return $('.filter-select').toArray().every(select => {
-                    const column = $(select).data('column');
-                    const value = $(select).val();
-                    return !value || row[column] === value;
-                });
+                // Filter by date range
+                if (dateColumn && (fromDate || toDate)) {
+                    const rowDate = row[dateColumn];
+                    if (rowDate) {
+                        // Parse date for comparison - DD/MM/YY format
+                        const parseDate = (dateStr) => {
+                            const parts = dateStr.split('/');
+                            if (parts.length === 3) {
+                                return new Date('20' + parts[2], parts[1] - 1, parts[0]);
+                            }
+                            return new Date(0);
+                        };
+                        
+                        const currentDate = parseDate(rowDate);
+                        
+                        if (fromDate) {
+                            const startDate = parseDate(fromDate);
+                            if (currentDate < startDate) return false;
+                        }
+                        
+                        if (toDate) {
+                            const endDate = parseDate(toDate);
+                            if (currentDate > endDate) return false;
+                        }
+                    }
+                }
+                
+                // Filter by shift
+                if (shiftColumn && shiftValue !== '') {
+                    if (row[shiftColumn] !== shiftValue) return false;
+                }
+                
+                // Filter by mode
+                if (modeColumn && modeValue !== '') {
+                    if (row[modeColumn] !== modeValue) return false;
+                }
+                
+                return true;
             });
 
             displayData(filteredData);
@@ -442,7 +566,10 @@
         });
 
         $('#clearFilters').on('click', function() {
-            $('.filter-select').val('');
+            $('#fromDate').val('');
+            $('#toDate').val('');
+            $('#shiftFilter').val('');
+            $('#modeFilter').val('');
             filteredData = [...csvData];
             displayData(filteredData);
             updateStats();
